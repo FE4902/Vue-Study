@@ -1,11 +1,13 @@
 <script>
 import Header from "./components/Header.vue";
 import Todo from "./components/Todo.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
     components: {
         Header,
         Todo,
+        Footer,
     },
     data() {
         return {
@@ -28,6 +30,7 @@ export default {
     <div class="wrap">
         <Header @insertTodo="insertTodo" />
         <Todo :todos="todos" />
+        <Footer :todos="todos" />
     </div>
 </template>
 
