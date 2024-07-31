@@ -1,8 +1,10 @@
 <script>
+import Header from "./components/Header.vue";
 import Todo from "./components/Todo.vue";
 
 export default {
     components: {
+        Header,
         Todo,
     },
     data() {
@@ -14,17 +16,25 @@ export default {
             ],
         };
     },
-    methods: {},
+    methods: {
+        insertTodo(text) {
+            this.todos = [...this.todos, { id: 4, text, isDone: false }];
+        },
+    },
 };
 </script>
 
 <template>
     <div class="wrap">
+        <Header @insertTodo="insertTodo" />
         <Todo :todos="todos" />
     </div>
 </template>
 
 <style lang="scss" scoped>
 .wrap {
+    padding: 16px;
+    margin: 16px;
+    border: 1px solid black;
 }
 </style>
