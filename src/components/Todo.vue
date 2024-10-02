@@ -1,14 +1,12 @@
-<script>
-export default {
-    props: {
-        todos: Array,
-    },
-};
+<script setup>
+const props = defineProps({
+    todos: Array,
+});
 </script>
 
 <template>
     <ul class="todo">
-        <li class="todo__item" v-for="todo in todos" :key="todo.id">
+        <li class="todo__item" v-for="todo in props.todos" :key="todo.id">
             <span class="todo__text" :class="{ complete: todo.isDone }">{{
                 todo.text
             }}</span>

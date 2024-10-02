@@ -1,25 +1,20 @@
-<script>
-export default {
-    data() {
-        return {
-            text: "",
-        };
-    },
-    methods: {
-        handleClick() {
-            const { text } = this;
+<script setup>
+import { ref } from "vue";
 
-            this.$emit("insertTodo", text);
-            this.text = "";
-        },
-    },
+const emit = defineEmits(["insertTodo"]);
+
+const text = ref("");
+
+const handleClick = () => {
+    emit("insertTodo", text.value);
+    text.value = "";
 };
 </script>
 
 <template>
     <div class="header">
         <input class="header__input" type="text" v-model="text" />
-        <button class="header__button" @click="handleClick">입력</button>
+        <button class="header__button" @click="handleClick()">입력</button>
     </div>
 </template>
 

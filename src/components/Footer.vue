@@ -1,16 +1,8 @@
-<script>
-export default {
-    props: {
-        todos: Array,
-    },
-    methods: {
-        filter: () => {
-            alert(1);
-        },
-        clearAll: () => {
-            todos = [];
-        },
-    },
+<script setup>
+const emit = defineEmits(["clearAll"]);
+
+const filter = () => {
+    alert(1);
 };
 </script>
 
@@ -21,7 +13,9 @@ export default {
             <button class="footer__button">Active</button>
             <button class="footer__button">Complete</button>
         </div>
-        <button class="footer__button" @click="clearAll()">Clear All</button>
+        <button class="footer__button" @click="emit('clearAll')">
+            Clear All
+        </button>
     </footer>
 </template>
 
