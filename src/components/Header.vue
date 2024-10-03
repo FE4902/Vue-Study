@@ -5,7 +5,7 @@ const emit = defineEmits(["insertTodo"]);
 
 const text = ref("");
 
-const handleClick = () => {
+const handleInsert = () => {
     emit("insertTodo", text.value);
     text.value = "";
 };
@@ -13,8 +13,13 @@ const handleClick = () => {
 
 <template>
     <div class="header">
-        <input class="header__input" type="text" v-model="text" />
-        <button class="header__button" @click="handleClick()">입력</button>
+        <input
+            class="header__input"
+            type="text"
+            v-model="text"
+            @keydown.enter="handleInsert()"
+        />
+        <button class="header__button" @click="handleInsert()">입력</button>
     </div>
 </template>
 

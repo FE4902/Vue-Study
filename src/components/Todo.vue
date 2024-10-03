@@ -1,12 +1,17 @@
 <script setup>
 const props = defineProps({
     todos: Array,
+    filterTodos: Array,
 });
 </script>
 
 <template>
     <ul class="todo">
-        <li class="todo__item" v-for="todo in props.todos" :key="todo.id">
+        <li
+            class="todo__item"
+            v-for="todo in props.filterTodos"
+            :key="filterTodos.id"
+        >
             <span class="todo__text" :class="{ complete: todo.isDone }">{{
                 todo.text
             }}</span>

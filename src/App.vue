@@ -2,28 +2,67 @@
 import Header from "./components/Header.vue";
 import Todo from "./components/Todo.vue";
 import Footer from "./components/Footer.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
+const filter = ref("ALL");
 const todos = ref([
     { id: 1, text: "방 청소", isDone: true },
     { id: 2, text: "신발 정리", isDone: false },
     { id: 3, text: "코딩 공부", isDone: false },
 ]);
 
+const filterTodos = ref([...todos.value]);
+
 const insertTodo = (text) => {
-    todos.value = [...todos.value, { id: 4, text, isDone: false }];
+    const insertTodoId = todos.value[todos.value.length - 1].id + 1;
+
+    todos.value = [...todos.value, { id: insertTodoId, text, isDone: false }];
+};
+
+watch(todos, () => {
+    filterTodo(filter.value);
+});
+
+const handleFilter = (state) => {
+    filter.value = state;
+    filterTodo(filter.value);
 };
 
 const clearAll = () => {
     todos.value = [];
+    filterTodos.value = [];
 };
+
+const filterTodo = (state) => {
+    switch (state) {
+        case "ALL":
+            filterTodos.value = [...todos.value];
+            break;
+        case "ACTIVE":
+            filterTodos.value = [...todos.value].filter(
+                (v) => v.isDone === false
+            );
+            break;
+        case "COMPLETE":
+            filterTodos.value = [...todos.value].filter(
+                (v) => v.isDone === true
+            );
+            break;
+    }
+};
+
+const clearTodo = (state) => {};
 </script>
 
 <template>
     <div class="wrap">
         <Header @insertTodo="insertTodo" />
-        <Todo :todos="todos" />
-        <Footer @clearAll="clearAll" />
+        <Todo :todos="todos" :filterTodos="filterTodos" />
+        <Footer
+            :filter="filter"
+            @handleFilter="handleFilter"
+            @clearAll="clearAll"
+        />
     </div>
 </template>
 

@@ -1,17 +1,32 @@
 <script setup>
-const emit = defineEmits(["clearAll"]);
-
-const filter = () => {
-    alert(1);
-};
+const props = defineProps({ filter: Array });
+const emit = defineEmits(["handleFilter", "clearAll"]);
 </script>
 
 <template>
     <footer class="footer">
         <div class="footer__filter">
-            <button class="footer__button" @click="filter()">All</button>
-            <button class="footer__button">Active</button>
-            <button class="footer__button">Complete</button>
+            <button
+                class="footer__button"
+                :class="{ active: props.filter === 'ALL' }"
+                @click="emit('handleFilter', 'ALL')"
+            >
+                All
+            </button>
+            <button
+                class="footer__button"
+                :class="{ active: props.filter === 'ACTIVE' }"
+                @click="emit('handleFilter', 'ACTIVE')"
+            >
+                Active
+            </button>
+            <button
+                class="footer__button"
+                :class="{ active: props.filter === 'COMPLETE' }"
+                @click="emit('handleFilter', 'COMPLETE')"
+            >
+                Complete
+            </button>
         </div>
         <button class="footer__button" @click="emit('clearAll')">
             Clear All
@@ -37,6 +52,11 @@ const filter = () => {
         width: 100px;
         border: 1px solid black;
         padding: 2px 4px;
+
+        &.active {
+            color: white;
+            background-color: black;
+        }
 
         &:hover {
             color: white;
