@@ -28,13 +28,8 @@ const handleFilter = (state) => {
     filterTodo(filter.value);
 };
 
-const clearAll = () => {
-    todos.value = [];
-    filterTodos.value = [];
-};
-
-const filterTodo = (state) => {
-    switch (state) {
+const filterTodo = (value) => {
+    switch (value) {
         case "ALL":
             filterTodos.value = [...todos.value];
             break;
@@ -51,7 +46,17 @@ const filterTodo = (state) => {
     }
 };
 
-const clearTodo = (state) => {};
+const clearTodo = (value) => {
+    switch (value) {
+        case "ALL":
+            todos.value = [];
+            filterTodos.value = [];
+            break;
+        case "COMPLETE":
+            todos.value = [...todos.value].filter((v) => v.isDone === false);
+            break;
+    }
+};
 </script>
 
 <template>
@@ -61,7 +66,7 @@ const clearTodo = (state) => {};
         <Footer
             :filter="filter"
             @handleFilter="handleFilter"
-            @clearAll="clearAll"
+            @clearTodo="clearTodo"
         />
     </div>
 </template>
