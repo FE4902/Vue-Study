@@ -14,7 +14,10 @@ const todos = ref([
 const filterTodos = ref([...todos.value]);
 
 const insertTodo = (text) => {
-    const insertTodoId = todos.value[todos.value.length - 1].id + 1;
+    const insertTodoId =
+        todos.value.length >= 1
+            ? todos.value[todos.value.length - 1].id + 1
+            : 1;
 
     todos.value = [...todos.value, { id: insertTodoId, text, isDone: false }];
 };
